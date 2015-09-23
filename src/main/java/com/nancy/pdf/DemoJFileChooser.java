@@ -22,7 +22,7 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
     private JTextArea textArea;
     private String fileChooserTitle = "Open file";
     private String previousFilePath;
-    private static String propFileName = "options.prop";
+    private static String propFileName = "/tmp/options.prop";
 
     public DemoJFileChooser(JButton button, JTextArea titleArea, JTextArea textArea) {
         this.button = button;
