@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.Properties;
 
 
-public class DemoJFileChooser extends JPanel implements ActionListener {
+public class PdfConverterGUI extends JPanel implements ActionListener {
     private JButton button;
     private JFileChooser fileChooser;
     private JTextArea titleArea;
@@ -24,7 +24,7 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
     private String previousFilePath;
     private static String propFileName = "/tmp/options.prop";
 
-    public DemoJFileChooser(JButton button, JTextArea titleArea, JTextArea textArea) {
+    public PdfConverterGUI(JButton button, JTextArea titleArea, JTextArea textArea) {
         this.button = button;
         this.button.addActionListener(this);
         this.titleArea = titleArea;
@@ -57,9 +57,11 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
                 String resultFile = "/tmp/" + selectedFile.getName().replace("pdf", "txt");
                 String formatText = ExtractPageContent.formatText("/tmp/med.txt", resultFile);
 //                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(sb.toString()), null);
-                titleArea.setText(selectedFile.getName().substring(0, selectedFile.getName().length() - 4));
+                titleArea.setText(selectedFile.getName().substring(5, selectedFile.getName().length() - 4));
                 textArea.setText(formatText);
                 textArea.setVisible(true);
+                titleArea.setEditable(false);
+                textArea.setEditable(false);
 
             } catch (IOException exception) {
                 exception.printStackTrace();
@@ -84,7 +86,7 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
     /**
      * Store location & size of UI
      */
-    public static void storeOptions(Frame f, DemoJFileChooser fileChooser) throws Exception {
+    public static void storeOptions(Frame f, PdfConverterGUI fileChooser) throws Exception {
         File file = new File(propFileName);
         Properties p = new Properties();
         // restore the frame from 'full screen' first!
@@ -108,7 +110,7 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
     /**
      * Restore location & size of UI
      */
-    public static void restoreOptions(Frame f, DemoJFileChooser fileChooser) throws IOException {
+    public static void restoreOptions(Frame f, PdfConverterGUI fileChooser) throws IOException {
         File file = new File(propFileName);
         Properties p = new Properties();
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -123,10 +125,6 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
 
         f.setBounds(r);
         fileChooser.setPreviousFilePath(p.getProperty("path"));
-    }
-
-    public static void main(String args[]) {
-        createAndShowGUI();
     }
 
     /**
@@ -161,7 +159,7 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
         final JTextArea titleArea = new JTextArea();
         titleArea.setPreferredSize(new Dimension(500, 30));
 
-        final DemoJFileChooser panel = new DemoJFileChooser(button, titleArea, textArea);
+        final PdfConverterGUI panel = new PdfConverterGUI(button, titleArea, textArea);
 //        frame.getContentPane().add(panel, "North");
 //        pane.add(panel, BorderLayout.PAGE_START);
         pane.add(button, BorderLayout.PAGE_START);
@@ -207,5 +205,10 @@ public class DemoJFileChooser extends JPanel implements ActionListener {
         } else {
             frame.setLocationByPlatform(true);
         }
+    }
+
+
+    public static void main(String args[]) {
+        createAndShowGUI();
     }
 }

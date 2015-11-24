@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.nancy.pdf.DemoJFileChooser</mainClass>
+                            <mainClass>com.nancy.pdf.PdfConverterGUI</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
